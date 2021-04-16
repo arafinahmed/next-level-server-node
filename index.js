@@ -107,12 +107,12 @@ client.connect(err => {
         try {
             const email = req.query.email;
             console.log(email);
-            studentsCollection.find({"email":email})
+            studentsCollection.find({ "email": email })
                 .toArray((err, docs) => {
-                    if(docs.length){
+                    if (docs.length) {
                         res.send(docs);
                     }
-                    else{
+                    else {
                         res.send([]);
                     }
                 })
@@ -123,44 +123,73 @@ client.connect(err => {
     });
 
     app.post('/addReview', (req, res) => {
-        try{
+        try {
             const name = req.body.name;
             const city = req.body.city;
             const review = req.body.review;
             const img = req.body.img;
-            reviewsCollection.insertOne({name, city, review, img})
-            .then(result => {
-                res.send(result.insertedCount > 0);
-            })
+            reviewsCollection.insertOne({ name, city, review, img })
+                .then(result => {
+                    res.send(result.insertedCount > 0);
+                })
         }
-        catch{
+        catch {
             res.send(false);
         }
     })
 
     app.get('/reviews', (req, res) => {
-        try{
+        try {
             reviewsCollection.find({})
-            .toArray((err, docs) => {
-                res.send(docs);
-            })
+                .toArray((err, docs) => {
+                    res.send(docs);
+                })
         }
-        catch{
+        catch {
             res.send([]);
         }
     })
 
     app.delete('/deleteCourse/:id', (req, res) => {
         try {
-          const id = ObjectID(req.params.id);
-          console.log(id);
-          coursesCollection.findOneAndDelete({ _id: id })
-            .then(document => {
-              res.send({ "message:": "delete" });
-            })
+            const id = ObjectID(req.params.id);
+            console.log(id);
+            coursesCollection.findOneAndDelete({ _id: id })
+                .then(document => {
+                    res.send({ "message:": "delete" });
+                })
         }
         catch {
-          res.send(false);
+            res.send(false);
+        }
+    })
+
+    app.get('/allStudents', (req, res) => {
+        try {
+            studentsCollection.find({})
+                .toArray((err, docs) => {
+                    res.send(docs);
+                })
+        }
+        catch {
+            res.send([]);
+        }
+    })
+
+    app.post('/updateStatus', (req, res) => {
+        try {
+            const id = req.body.id;
+            const status = req.body.status;
+            console.log(id, status);
+            studentsCollection.updateOne({ _id: ObjectID(id) }, {
+                $set: { "courseStatus": status }
+            })
+                .then(result => {
+                    res.send(result.modifiedCount > 0)
+                })
+        }
+        catch{            
+            res.send(false);
         }
       })
 
