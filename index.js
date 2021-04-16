@@ -150,6 +150,20 @@ client.connect(err => {
         }
     })
 
+    app.delete('/deleteCourse/:id', (req, res) => {
+        try {
+          const id = ObjectID(req.params.id);
+          console.log(id);
+          coursesCollection.findOneAndDelete({ _id: id })
+            .then(document => {
+              res.send({ "message:": "delete" });
+            })
+        }
+        catch {
+          res.send(false);
+        }
+      })
+
 })
 
 app.listen(process.env.PORT || port, () => {
