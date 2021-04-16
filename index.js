@@ -26,6 +26,7 @@ client.connect(err => {
     const adminsCollection = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION);
     const coursesCollection = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION2);
     const studentsCollection = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION3);
+    const reviewsCollection = client.db(process.env.DB_NAME).collection(process.env.DB_COLLECTION4);
     app.post('/addAdmin', (req, res) => {
         try {
             const admin = req.body.email;
@@ -108,13 +109,34 @@ client.connect(err => {
             console.log(email);
             studentsCollection.find({"email":email})
                 .toArray((err, docs) => {
-                    res.send(docs);
+                    if(docs.length){
+                        res.send(docs);
+                    }
+                    else{
+                        res.send([]);
+                    }
                 })
         }
         catch {
             res.send([]);
         }
     });
+
+    app.post('/addReview', (req, res) => {
+        try{
+            const name = req.body.name;
+            const city = req.body.city;
+            const review = req.body.review;
+            const img = req.body.img;
+            reviewsCollection.insertOne({name, city, review, img})
+            .then(result => {
+                res.send(result.insertedCount > 0);
+            })
+        }
+        catch{
+            res.send(false);
+        }
+    })
 
 })
 
