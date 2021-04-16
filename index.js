@@ -138,6 +138,18 @@ client.connect(err => {
         }
     })
 
+    app.get('/reviews', (req, res) => {
+        try{
+            reviewsCollection.find({})
+            .toArray((err, docs) => {
+                res.send(docs);
+            })
+        }
+        catch{
+            res.send([]);
+        }
+    })
+
 })
 
 app.listen(process.env.PORT || port, () => {
