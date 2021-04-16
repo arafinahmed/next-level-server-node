@@ -97,11 +97,23 @@ client.connect(err => {
                     res.send(result.insertedCount > 0);
                 })
         }
-        catch{
+        catch {
             res.send(false);
         }
-        
+    });
 
+    app.get('/enrolledCourses', (req, res) => {
+        try {
+            const email = req.query.email;
+            console.log(email);
+            studentsCollection.find({"email":email})
+                .toArray((err, docs) => {
+                    res.send(docs);
+                })
+        }
+        catch {
+            res.send([]);
+        }
     });
 
 })
