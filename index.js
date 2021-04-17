@@ -5,7 +5,7 @@ const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 require('dotenv').config();
-const fs = require('fs-extra');
+
 
 const app = express()
 const port = 8888

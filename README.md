@@ -3,6 +3,8 @@
 
 Live Api Link: https://nextlevel1.herokuapp.com/
 
+### List of All EndPoints and purposes
+
 Api Endpoint | Purpose
 ------------ | -------------
  /| Testing the server
@@ -18,3 +20,6 @@ Api Endpoint | Purpose
 /allStudents | Admin can check all students
 /updateStatus | Admin can change status of a student
 /isAdmin | check admin or not
+
+### Dependencies
+#### `body-parser` `cors` `dotenv` `express` `express-fileupload` `mongodb` `nodemon`
