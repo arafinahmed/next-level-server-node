@@ -1,5 +1,5 @@
 # NEXT Level -- A Complete Website. 
-##
+## Server Section
 
 Live Api Link: https://nextlevel1.herokuapp.com/
 
@@ -23,3 +23,11 @@ Api Endpoint | Purpose
 
 ### Dependencies
 #### `body-parser` `cors` `dotenv` `express` `express-fileupload` `mongodb` `nodemon`
+
+### For run this code in Local
+1. Clone this repository using `git clone`
+2. Hit `npm install` for installing dependencies. 
+3. Create a mongodb account and create a database and collections. 
+4. Create a `.env` file. Save your mongodb credential.
+5. Run index.js. 
+6. Enjoy
