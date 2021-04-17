@@ -188,10 +188,28 @@ client.connect(err => {
                     res.send(result.modifiedCount > 0)
                 })
         }
-        catch{            
+        catch {
             res.send(false);
         }
-      })
+    })
+
+    app.get('/isAdmin', (req, res) => {
+        try {
+            const email = req.query.email;
+            adminsCollection.find({email: email})
+            .toArray((err, result) => {
+                if(result.length){
+                    res.send(true);
+                }
+                else{
+                    res.send(false);
+                }
+            })
+        }
+        catch {
+            res.send(false);
+        }
+    });
 
 })
 
